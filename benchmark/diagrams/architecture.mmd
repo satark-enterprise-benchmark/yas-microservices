@@ -1,0 +1,49 @@
+flowchart TB
+  subgraph clients [Clients]
+    SF[storefront Next.js]
+    BO[backoffice Next.js]
+  end
+
+  NG[nginx]
+
+  subgraph edge [Edge and identity]
+    SFBFF[storefront-bff]
+    BOBFF[backoffice-bff]
+    KC[Keycloak identity]
+  end
+
+  subgraph domain [Domain services]
+    CUST[customer]
+    LOC[location]
+    CART[cart]
+    ORD[order]
+    PAY[payment]
+    PROD[product]
+    OTHER[media inventory tax promotion rating]
+  end
+
+  subgraph data [Data plane]
+    PG[(PostgreSQL multi-DB)]
+    RD[(Redis)]
+    KF[Kafka + Debezium]
+    ES[(Elasticsearch optional)]
+  end
+
+  SF --> NG
+  BO --> NG
+  NG --> SFBFF
+  NG --> BOBFF
+  NG --> KC
+  SFBFF --> domain
+  BOBFF --> domain
+  CUST --> KC
+  CUST --> LOC
+  ORD --> CUST
+  ORD --> PROD
+  CART --> PROD
+  PAY --> ORD
+  domain --> PG
+  KC --> PG
+  domain --> RD
+  PG --> KF
+  KF --> ES

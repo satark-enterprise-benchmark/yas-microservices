@@ -1,0 +1,26 @@
+{
+  "name": "yas-microservices",
+  "org_url": "https://github.com/satark-enterprise-benchmark/yas-microservices",
+  "upstream_url": "https://github.com/nashtech-garage/yas",
+  "default_branch": "main",
+  "baseline_sha": "179e813568c345bad3fce985088b5535e57481aa",
+  "acquisition_date": "2026-11-16T21:10:24Z",
+  "license": "MIT",
+  "maintained_status": "active-upstream-fork",
+  "docker_compose_available": true,
+  "messaging": ["Apache Kafka", "Kafka Connect", "Debezium PostgreSQL CDC", "Kafka UI"],
+  "databases": ["PostgreSQL (database-per-service)", "Redis", "Elasticsearch (optional search profile)", "Keycloak realm store (PostgreSQL keycloak DB)"],
+  "languages": ["Java 25", "TypeScript/JavaScript (Next.js)", "SQL (Liquibase)", "Bash", "YAML"],
+  "architecture_pattern": "microservices-with-bff-and-api-gateway",
+  "benchmark_purpose": "Enterprise PII benchmark for service-to-service PII movement in a Spring Boot ecommerce mesh (customer identity, addresses, cart, order, payment, delivery stub, notification/webhook).",
+  "inaccessible_items": [
+    "Full docker compose startup not executed during Phase 1 documentation",
+    "Maven (mvn) not installed on inspection host",
+    "Usable system Java runtime not available on inspection host (java -version failed)",
+    "delivery service is a stub (empty controller/service) — no runtime delivery PII paths implemented",
+    "webhook and recommendation services are commented out in docker-compose.yml",
+    "No dedicated notification microservice; webhook event notifications are the closest analogue",
+    "SonarCloud token and GHCR publish credentials are upstream CI secrets — unavailable here",
+    "Azure OpenAI embedding keys referenced in .env for recommendation — not validated"
+  ]
+}

@@ -1,0 +1,19 @@
+flowchart LR
+  CUST[customer] --> LOC[location]
+  CUST --> KC[Keycloak]
+  ORD[order] --> CUST
+  ORD --> PROD[product]
+  ORD --> PROMO[promotion]
+  CART[cart] --> PROD
+  PAY[payment] --> ORD
+  PAY --> MEDIA[media]
+  SEARCH[search] --> KF[Kafka product CDC]
+  REC[recommendation] --> KF
+  DEB[Debezium Connect] --> PG[(Postgres)]
+  DEB --> KF
+  SFBFF[storefront-bff] --> CUST
+  SFBFF --> CART
+  SFBFF --> ORD
+  SFBFF --> PAY
+  BOBFF[backoffice-bff] --> CUST
+  BOBFF --> PROD

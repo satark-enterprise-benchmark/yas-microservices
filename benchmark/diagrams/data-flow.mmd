@@ -1,0 +1,25 @@
+sequenceDiagram
+  participant U as Browser
+  participant BFF as storefront-bff
+  participant KC as Keycloak
+  participant C as customer
+  participant L as location
+  participant O as order
+  participant P as payment
+  participant DB as Postgres
+  participant K as Kafka
+
+  U->>BFF: login
+  BFF->>KC: auth
+  U->>BFF: save address
+  BFF->>C: address APIs
+  C->>L: create/get address
+  L->>DB: address PII
+  C->>DB: user_address link
+  U->>BFF: checkout
+  BFF->>O: create order
+  O->>C: get profile
+  O->>DB: email + order_address PII
+  BFF->>P: pay
+  P->>O: update status
+  DB->>K: Debezium order/product CDC
